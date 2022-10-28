@@ -1,7 +1,7 @@
 class CurrencyService
   def initialize
     @conn = Faraday.new(ENV["url"]) do |f|
-      f.response :json
+      f.response :json, parser_options: { symbolize_names: true }
       f.headers["apikey"] = ENV["apikey"]
     end
   end

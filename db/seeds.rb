@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+def fetch_currencies
+  cs = CurrencyService.new
+  res = cs.symbols
+  res[:data][:symbols].each do |k, v|
+    Currency.create(name: k, description: v)
+  end
+end
+
+fetch_currencies()
