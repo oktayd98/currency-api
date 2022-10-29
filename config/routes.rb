@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   
   resources :conversation_pairs, only: %i[index create destroy]
+  resources :currencies, only: :index
 end
