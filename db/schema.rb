@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_28_203221) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_28_211949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "conversation_pairs", force: :cascade do |t|
+    t.bigint "base_id", null: false
+    t.bigint "target_id", null: false
+    t.decimal "rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["base_id"], name: "index_conversation_pairs_on_base_id"
+    t.index ["target_id"], name: "index_conversation_pairs_on_target_id"
+  end
 
   create_table "currencies", force: :cascade do |t|
     t.string "name"
@@ -21,4 +31,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_28_203221) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "conversation_pairs", "currencies", column: "base_id"
+  add_foreign_key "conversation_pairs", "currencies", column: "target_id"
 end
