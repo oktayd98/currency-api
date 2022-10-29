@@ -20,7 +20,12 @@ namespace :currency do
       
       responses.each do |res|
         res[:data][:rates].each do |target, rate|
-          pairs.find{ |p| p.base.name == res[:data][:base] && p.target.name == target.to_s }.update(rate: rate)
+          pair = pairs.find{ |p| p.base.name == res[:data][:base] && p.target.name == target.to_s }
+          if pair.update(rate: rate)
+            puts "[#{Time.now}] SUCCESS: #{pair.inspect}"
+          else
+            puts "[#{Time.now}] FAIL: #{pair.inspect}\n#{pair.errors.full_messages.join(", ")}"
+          end
         end
       end
     rescue => exception

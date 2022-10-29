@@ -50,3 +50,4 @@ end
 
 gem "faraday"
 gem "dotenv-rails"
+gem 'whenever', require: false
