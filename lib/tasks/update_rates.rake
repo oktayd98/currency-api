@@ -1,7 +1,7 @@
 namespace :currency do
   task update_rates: :environment do
     begin
-      pairs = ConversationPair.includes(:base,:target).all
+      pairs = ConversationPair.includes(:base, :target).all
       cs = CurrencyService.new
       grouped = {}
       responses = []
@@ -28,6 +28,13 @@ namespace :currency do
           end
         end
       end
+
+      ActionCable.server.broadcast("conversation_rates", ConversationPairsController.render(
+        partial: "conversation_pairs/pair_list",
+        locals: {
+          pairs: pairs
+        }
+      ))
     rescue => exception
       p exception
     end
