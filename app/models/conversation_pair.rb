@@ -23,6 +23,8 @@ class ConversationPair < ApplicationRecord
   belongs_to :base, class_name: "Currency"
   belongs_to :target, class_name: "Currency"
 
+  validates :target_id, uniqueness: { scope: :base_id }
+
   before_create :set_rate
 
   def set_rate
