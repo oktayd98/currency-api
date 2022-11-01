@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+For schedule rake tasks, I used [whenever](https://github.com/javan/whenever) gem. This gem uses crontab tool which is belongs only unix systems. That's why you have to use unix system to run the app.
 
-Things you may want to cover:
+- Start `postgresql` and `redis` services
+- Install packages with `bundle install`
+- Create and seed database with `rails db:setup`
+- Schedule rake task with `whenever --update-crontab`
+- Start development server with `rails s` in port 3000
 
-* Ruby version
+> After stop the server you have to clean crontab file with `crontab -r`. Otherwise the cron job keep running even though you stop the server.
 
-* System dependencies
+> Update .env file with your fixer.io apikey
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+> If you want to run the application on a different port please update frontend `.env` file
